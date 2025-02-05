@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
-using System.Reflection;
 
 
 namespace Subneteo_basico
@@ -43,7 +41,7 @@ namespace Subneteo_basico
             string[] SubredBinarioArrayRedgeneral = new string[4];
             string[] HostBinarioArrayRedgeneral = new string[4];
 
-
+            //Ingreso de datos
             while (IPInicial == null)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -110,7 +108,7 @@ namespace Subneteo_basico
             do
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("\n¿Pulse 1 en caso de querer hacer subneteto basico o pulse 2 en caso de querer hacerlo con VLSM?: ");
+                Console.Write("\nPulse 1 en caso de querer hacer subneteto basico o pulse 2 en caso de querer hacerlo con VLSM: ");
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 input = Console.ReadLine();
@@ -135,6 +133,10 @@ namespace Subneteo_basico
 
             } while (!valido);
 
+            //Operaciones necesarias
+            List<int> HostCopia = Host;
+            Host.Sort((a, b) => b.CompareTo(a));
+
             HostBinarioArray = BinarioAArray(hostBinario);
             RedBinarioArray = BinarioAArray(RedBinario);
             SubredBinarioArray = BinarioAArray(subredBinario);
@@ -144,9 +146,18 @@ namespace Subneteo_basico
 
             string[,] RedGeneral = subneteo(RedBinarioArrayRedgeneral, HostBinarioArrayRedgeneral, SubredBinarioArray, 0, true);
 
+            string[,] ResultadosFinales = null;
+            switch (input)
+            {
+                case "1":
+                    ResultadosFinales = subneteo(RedBinarioArray, HostBinarioArray, SubredBinarioArray, numeroSubredes, false);
+                    break;
+                case "2":
+                    ResultadosFinales = SubneteoConVLSM(RedBinarioArray, HostBinarioArray, SubredBinarioArray, numeroSubredes, false, Host);
+                    break;
 
-            //string[,] ResultadosFinales = subneteo(RedBinarioArray, HostBinarioArray, SubredBinarioArray, numeroSubredes, false);
-            string[,] ResultadosFinales = SubneteoConVLSM(RedBinarioArray, HostBinarioArray, SubredBinarioArray, numeroSubredes, false, Host);
+            }
+            
             string[,] ResultadosFinalesConPunto = AñadirPuntosBinario(ResultadosFinales, numeroSubredes, false);
 
             string[,] ResultadosFinalesDecimal = IPDecimalConPuntos(ResultadosFinalesConPunto);
@@ -155,7 +166,7 @@ namespace Subneteo_basico
             string[,] ResultadosFinalesDecimalRedGeneral = IPDecimalConPuntos(ResultadosFinalesConPuntoRedGeneral);
 
 
-
+            //Escribe todos los datos en consola
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.WriteLine("Red general:");
@@ -192,7 +203,15 @@ namespace Subneteo_basico
             {
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.DarkBlue;
-                Console.WriteLine("Subred numero {0}:", i + 1);
+                switch (input)
+                {
+                    case "1":
+                        Console.WriteLine("Subred numero {0}:", i + 1);
+                        break;
+                    case "2":
+                        Console.WriteLine("Subred con {0} host:", Host[i]);
+                        break;
+                }
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("IP de red:");
@@ -222,14 +241,25 @@ namespace Subneteo_basico
                 Console.WriteLine("Decimal: {0}", ResultadosFinalesDecimal[3, i]);
                 Console.WriteLine();
 
-                double desperdicio = Math.Pow(2, hostBinario.Length) - 1 - Host[i];
-
+                double desperdicio = 0;
+                switch (input)
+                {
+                    case "1":
+                        desperdicio = Math.Pow(2, hostBinario.Length) - 1 - HostCopia[i];
+                        break;
+                    case "2":
+                        hostBinario = CanversionBinario(new int[] { Host[i] }, 0);
+                        desperdicio = Math.Pow(2, hostBinario.Length) - 1 - Host[i];
+                        break;
+                }
+            
                 Console.WriteLine("Y se desperdician: {0}", (int)desperdicio);
                 Console.WriteLine("");
             }
+        
 
             Console.ReadKey();
-
+            
         }
 
         private static ArrayList NumeroHostSubred(string posible, string subredes, int hostLargo)
@@ -773,32 +803,36 @@ namespace Subneteo_basico
 
             string subredAnterior = "";
 
-            Host.Sort((a, b) => b.CompareTo(a));
-
-
-            string[,] Resultados = null;
+            string[,] Resultados = new string[4, numeroSubredes];
             bool PrimeraVez = true;
+            bool segundaVez = true;
+
+            int longPrimeraVez = 0; 
 
             for (int numeroIndice = 0; numeroIndice < numeroSubredes; numeroIndice++)
             {
                 int HostActual = Host[numeroIndice];
                 //IP de red general
-                IPRedRsultList = conversionesDeDatosFinalesVLSM(RedBinario, hostBinario, false, false, true, numeroIndice, numeroSubredes, PrimeraVez, subredAnterior, HostActual);
+                IPRedRsultList = conversionesDeDatosFinalesVLSM(RedBinario, hostBinario, false, false, true, numeroIndice, numeroSubredes, PrimeraVez, subredAnterior, HostActual, segundaVez, longPrimeraVez);
                 IPRedRsult[numeroIndice] = IPRedRsultList[0].ToString();
-                subredAnterior = IPRedRsultList[1].ToString();
 
                 //IP de broadcast general
-                IPBroadcastRsultList = conversionesDeDatosFinalesVLSM(RedBinario, hostBinario, false, false, false, numeroIndice, numeroSubredes, PrimeraVez, subredAnterior, HostActual);
+                IPBroadcastRsultList = conversionesDeDatosFinalesVLSM(RedBinario, hostBinario, false, false, false, numeroIndice, numeroSubredes, PrimeraVez, subredAnterior, HostActual, segundaVez, longPrimeraVez);
                 IPBroadcastRsult[numeroIndice] = IPBroadcastRsultList[0].ToString();
 
                 // Primera red general
-                IPPrimeraRsultList = conversionesDeDatosFinalesVLSM(RedBinario, hostBinario, true, true, true, numeroIndice, numeroSubredes, PrimeraVez, subredAnterior, HostActual);
+                IPPrimeraRsultList = conversionesDeDatosFinalesVLSM(RedBinario, hostBinario, true, true, true, numeroIndice, numeroSubredes, PrimeraVez, subredAnterior, HostActual, segundaVez, longPrimeraVez);
                 IPPrimeraRsult[numeroIndice] = IPPrimeraRsultList[0].ToString();
 
                 // Ultima red general
-                IPUltimaRsultList = conversionesDeDatosFinalesVLSM(RedBinario, hostBinario, true, false, false, numeroIndice, numeroSubredes, PrimeraVez, subredAnterior, HostActual);
+                IPUltimaRsultList = conversionesDeDatosFinalesVLSM(RedBinario, hostBinario, true, false, false, numeroIndice, numeroSubredes, PrimeraVez, subredAnterior, HostActual, segundaVez, longPrimeraVez);
                 IPUltimaRsult[numeroIndice] = IPUltimaRsultList[0].ToString();
 
+
+                subredAnterior = IPRedRsultList[1].ToString();
+                longPrimeraVez = (int)IPRedRsultList[2];
+
+                segundaVez = !PrimeraVez ? false : true;
                 PrimeraVez = false;
             }
 
@@ -822,7 +856,7 @@ namespace Subneteo_basico
             return Resultados;
         }
 
-        private static ArrayList conversionesDeDatosFinalesVLSM(string[] RedBinario, string[] hostBinario, bool PrimeraUltima, bool primera, bool ConCeros, int Indice, int numeroSubredes, bool PrimeraVez, string subredAnterior, int Host)
+        private static ArrayList conversionesDeDatosFinalesVLSM(string[] RedBinario, string[] hostBinario, bool PrimeraUltima, bool primera, bool ConCeros, int Indice, int numeroSubredes, bool PrimeraVez, string subredAnterior, int Host, bool segundaVez, int LongUltimaVez)
         {
             // retorno
             string IPResult = "";
@@ -851,11 +885,11 @@ namespace Subneteo_basico
                 IPResult += s;
             }
 
-            
+
 
             //Añade el apartado de host, que varia en cada uno
 
-            string HostActualBinario = CanversionBinario(new int[] { Host - 1}, 0);
+            string HostActualBinario = CanversionBinario(new int[] { Host - 1 }, 0);
 
             string todoHost = "";
 
@@ -872,6 +906,7 @@ namespace Subneteo_basico
 
             }
 
+            int numeroDeCerosPrimeraVez = 0;
             // Se calcula con cada subred
             if (PrimeraVez)
             {
@@ -879,18 +914,50 @@ namespace Subneteo_basico
                 indiceBinario = CanversionBinario(subRedes, 32 - todoHost.Length - IPResult.Length);
 
                 IPResult += indiceBinario;
+
+                numeroDeCerosPrimeraVez = indiceBinario.Length;
+                LongUltimaVez = indiceBinario.Length;
             }
             else
             {
                 int SubredAnterior = DeBinarioADecimal(subredAnterior);
 
-                string PreSubredNueva = CanversionBinario(new int[] { SubredAnterior + 1 }, 0);
-
-               /* for(int i = PreSubredNueva.Length; i < ; i++)
+                string numeroAnterior = CanversionBinario(new int[] { SubredAnterior + 1 }, 0);
+                string PreSubredNueva = "";
+                
+                if (segundaVez)
                 {
-                    PreSubredNueva += "0";
+                    PreSubredNueva = "";
+
+                    for (int i = 0; i != LongUltimaVez - 1; i++)
+                    {
+                        PreSubredNueva += "0";
+                    }
+                    PreSubredNueva += "1";
+
+                    for (int i = PreSubredNueva.Length; i + todoHost.Length + IPResult.Length != 32; i++)
+                    {
+                        PreSubredNueva += "0";
+                    }
                 }
-                indiceBinario = CanversionBinario(new int[] { SubredAnterior + 1 }, 32 - todoHost.Length - IPResult.Length);*/
+                else
+                {
+                    for (int i = 0; i < LongUltimaVez - numeroAnterior.Length; i++)
+                    {
+                        PreSubredNueva += "0";
+                    }
+
+                    PreSubredNueva += numeroAnterior;
+
+                    for (int i = PreSubredNueva.Length; i + todoHost.Length + IPResult.Length != 32; i++)
+                    {
+                        PreSubredNueva += "0";
+                    }
+                }
+                
+                IPResult += PreSubredNueva;
+                indiceBinario = PreSubredNueva;
+                LongUltimaVez = PreSubredNueva.Length;
 
             }
 
@@ -899,11 +966,10 @@ namespace Subneteo_basico
             ArrayList output = new ArrayList();
             output.Add(IPResult);
             output.Add(indiceBinario);
+            output.Add(LongUltimaVez);
 
             if (IPResult.Length != 32) { throw new ArgumentException("No es 32"); }
             return output;
         }
-
-
     }
 }
