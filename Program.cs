@@ -157,7 +157,7 @@ namespace Subneteo_basico
                     break;
 
             }
-            
+
             string[,] ResultadosFinalesConPunto = AñadirPuntosBinario(ResultadosFinales, numeroSubredes, false);
 
             string[,] ResultadosFinalesDecimal = IPDecimalConPuntos(ResultadosFinalesConPunto);
@@ -167,99 +167,174 @@ namespace Subneteo_basico
 
 
             //Escribe todos los datos en consola
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.WriteLine("Red general:");
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("IP de red:");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Binario: {0}", ResultadosFinalesConPuntoRedGeneral[0, 0]);
-            Console.WriteLine("Decimal: {0}", ResultadosFinalesDecimalRedGeneral[0, 0]);
-            Console.WriteLine();
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("IP de breadcast:");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Binario: {0}", ResultadosFinalesConPuntoRedGeneral[1, 0]);
-            Console.WriteLine("Decimal: {0}", ResultadosFinalesDecimalRedGeneral[1, 0]);
-            Console.WriteLine();
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Primera IP disponible:");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Binario: {0}", ResultadosFinalesConPuntoRedGeneral[2, 0]);
-            Console.WriteLine("Decimal: {0}", ResultadosFinalesDecimalRedGeneral[2, 0]);
-            Console.WriteLine();
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Ultima IP disponible:");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Binario: {0}", ResultadosFinalesConPuntoRedGeneral[3, 0]);
-            Console.WriteLine("Decimal: {0}", ResultadosFinalesDecimalRedGeneral[3, 0]);
-            Console.WriteLine();
-
-            for (int i = 0; i < numeroSubredes; i++)
             {
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.DarkBlue;
-                switch (input)
-                {
-                    case "1":
-                        Console.WriteLine("Subred numero {0}:", i + 1);
-                        break;
-                    case "2":
-                        Console.WriteLine("Subred con {0} host:", Host[i]);
-                        break;
-                }
+                Console.WriteLine("Red general:");
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("IP de red:");
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Binario: {0}", ResultadosFinalesConPunto[0, i]);
-                Console.WriteLine("Decimal: {0}", ResultadosFinalesDecimal[0, i]);
-                Console.WriteLine();
+                Console.Write("Binario: ");
+                ImprimirGeneral(ResultadosFinalesConPuntoRedGeneral[0, 0], RedBinario.Length, subredBinario.Length);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("Decimal: ");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("{0}\n", ResultadosFinalesDecimal[3, 0]);
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("IP de breadcast:");
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Binario: {0}", ResultadosFinalesConPunto[1, i]);
-                Console.WriteLine("Decimal: {0}", ResultadosFinalesDecimal[1, i]);
-                Console.WriteLine();
+                Console.Write("Binario: ");
+                ImprimirGeneral(ResultadosFinalesConPuntoRedGeneral[1, 0], RedBinario.Length, subredBinario.Length);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("Decimal: ");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("{0}\n", ResultadosFinalesDecimal[3, 0]);
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Primera IP disponible:");
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Binario: {0}", ResultadosFinalesConPunto[2, i]);
-                Console.WriteLine("Decimal: {0}", ResultadosFinalesDecimal[2, i]);
-                Console.WriteLine();
+                Console.Write("Binario: ");
+                ImprimirGeneral(ResultadosFinalesConPuntoRedGeneral[2, 0], RedBinario.Length, subredBinario.Length);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("Decimal: ");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("{0}\n", ResultadosFinalesDecimal[3, 0]);
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Ultima IP disponible:");
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Binario: {0}", ResultadosFinalesConPunto[3, i]);
-                Console.WriteLine("Decimal: {0}", ResultadosFinalesDecimal[3, i]);
-                Console.WriteLine();
+                Console.Write("Binario: ");
+                ImprimirGeneral(ResultadosFinalesConPuntoRedGeneral[3, 0], RedBinario.Length, subredBinario.Length);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("Decimal: ");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("{0}\n", ResultadosFinalesDecimal[3, 0]);
 
-                double desperdicio = 0;
+
                 switch (input)
                 {
                     case "1":
-                        desperdicio = Math.Pow(2, hostBinario.Length) - 1 - HostCopia[i];
+
+                        for (int i = 0; i < numeroSubredes; i++)
+                        {
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            Console.WriteLine("Subred numero {0}:", i + 1);
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("IP de red:");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Binario: ");
+                            Imprimir(ResultadosFinalesConPunto[0, i], RedBinario.Length, subredBinario.Length);
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Decimal: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("{0}\n", ResultadosFinalesDecimal[0, i]);
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("IP de breadcast:");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Binario: ");
+                            Imprimir(ResultadosFinalesConPunto[1, i], RedBinario.Length, subredBinario.Length);
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Decimal: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("{0}\n", ResultadosFinalesDecimal[1, i]);
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("Primera IP disponible:");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Binario: ");
+                            Imprimir(ResultadosFinalesConPunto[2, i], RedBinario.Length, subredBinario.Length);
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Decimal: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("{0}\n", ResultadosFinalesDecimal[2, i]);
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("Ultima IP disponible:");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Binario: ");
+                            Imprimir(ResultadosFinalesConPunto[3, i], RedBinario.Length, subredBinario.Length);
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Decimal: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("{0}\n", ResultadosFinalesDecimal[3, i]);
+
+                            double desperdicio = Math.Pow(2, hostBinario.Length) - 1 - HostCopia[i];
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Y se desperdician: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("{0}\n", (int)desperdicio);
+                        }
                         break;
                     case "2":
-                        hostBinario = CanversionBinario(new int[] { Host[i] }, 0);
-                        desperdicio = Math.Pow(2, hostBinario.Length) - 1 - Host[i];
+                        for (int i = 0; i < numeroSubredes; i++)
+                        {
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            Console.WriteLine("Subred con {0} host:", Host[i]);
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("IP de red:");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Binario: ");
+                            Imprimir(ResultadosFinalesConPunto[0, i], RedBinario.Length, Int32.Parse(ResultadosFinales[4, i]));
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Decimal: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("{0}\n", ResultadosFinalesDecimal[0, i]);
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("IP de breadcast:");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Binario: ");
+                            Imprimir(ResultadosFinalesConPunto[1, i], RedBinario.Length, Int32.Parse(ResultadosFinales[4, i]));
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Decimal: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("{0}\n", ResultadosFinalesDecimal[1, i]);
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("Primera IP disponible:");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Binario: ");
+                            Imprimir(ResultadosFinalesConPunto[2, i], RedBinario.Length, Int32.Parse(ResultadosFinales[4, i]));
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Decimal: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("{0}\n", ResultadosFinalesDecimal[2, i]);
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("Ultima IP disponible:");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Binario: ");
+                            Imprimir(ResultadosFinalesConPunto[3, i], RedBinario.Length, Int32.Parse(ResultadosFinales[4, i]));
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Decimal: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("{0}\n", ResultadosFinalesDecimal[3, i]);
+
+                            double desperdicio = Math.Pow(2, hostBinario.Length) - 1 - HostCopia[i];
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("Y se desperdician: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("{0}\n", (int)desperdicio);
+                        }
                         break;
                 }
-            
-                Console.WriteLine("Y se desperdician: {0}", (int)desperdicio);
-                Console.WriteLine("");
-            }
-        
 
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("Parte de red");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Parte de subred");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Parte de host");
+            }
             Console.ReadKey();
-            
+
         }
 
         private static ArrayList NumeroHostSubred(string posible, string subredes, int hostLargo)
@@ -796,6 +871,8 @@ namespace Subneteo_basico
             string[] IPPrimeraRsult = new string[numeroSubredes];
             string[] IPUltimaRsult = new string[numeroSubredes];
 
+            int[] LongitudPropiedades = new int[numeroSubredes];
+
             ArrayList IPRedRsultList = new ArrayList();
             ArrayList IPBroadcastRsultList = new ArrayList();
             ArrayList IPPrimeraRsultList = new ArrayList();
@@ -803,11 +880,11 @@ namespace Subneteo_basico
 
             string subredAnterior = "";
 
-            string[,] Resultados = new string[4, numeroSubredes];
+            string[,] Resultados = new string[5, numeroSubredes];
             bool PrimeraVez = true;
             bool segundaVez = true;
 
-            int longPrimeraVez = 0; 
+            int longPrimeraVez = 0;
 
             for (int numeroIndice = 0; numeroIndice < numeroSubredes; numeroIndice++)
             {
@@ -830,13 +907,14 @@ namespace Subneteo_basico
 
 
                 subredAnterior = IPRedRsultList[1].ToString();
+
                 longPrimeraVez = (int)IPRedRsultList[2];
+                LongitudPropiedades[numeroIndice] = subredAnterior.Length;
 
                 segundaVez = !PrimeraVez ? false : true;
                 PrimeraVez = false;
             }
 
-
             for (int b = 0; b < numeroSubredes; b++)
             {
                 Resultados[0, b] = IPRedRsult[b];
@@ -845,12 +923,9 @@ namespace Subneteo_basico
                 Resultados[3, b] = IPUltimaRsult[b];
             }
 
-            for (int b = 0; b < numeroSubredes; b++)
+            for(int b = 0; b < numeroSubredes; b++)
             {
-                Resultados[0, b] = IPRedRsult[b];
-                Resultados[1, b] = IPBroadcastRsult[b];
-                Resultados[2, b] = IPPrimeraRsult[b];
-                Resultados[3, b] = IPUltimaRsult[b];
+                Resultados[4, b] = LongitudPropiedades[b].ToString();
             }
 
             return Resultados;
@@ -924,7 +999,7 @@ namespace Subneteo_basico
 
                 string numeroAnterior = CanversionBinario(new int[] { SubredAnterior + 1 }, 0);
                 string PreSubredNueva = "";
-                
+
                 if (segundaVez)
                 {
                     PreSubredNueva = "";
@@ -954,7 +1029,7 @@ namespace Subneteo_basico
                         PreSubredNueva += "0";
                     }
                 }
-                
+
                 IPResult += PreSubredNueva;
                 indiceBinario = PreSubredNueva;
                 LongUltimaVez = PreSubredNueva.Length;
@@ -970,6 +1045,84 @@ namespace Subneteo_basico
 
             if (IPResult.Length != 32) { throw new ArgumentException("No es 32"); }
             return output;
+        }
+
+        //Imprimir en consola
+        private static void Imprimir(string IP, int longRed, int longSubred)
+        {
+            int counter = 0;
+            char Color = 'R';
+            foreach (char c in IP)
+            {
+                if (counter < longRed)
+                {
+                    Color = 'R';
+                }
+                else if (counter < longRed + longSubred)
+                {
+                    Color = 'S';
+                }
+                else
+                {
+                    Color = 'H';
+                }
+
+                switch(Color)
+                {
+                    case 'R':
+                        Console.ForegroundColor = ConsoleColor.Magenta; 
+                        break;
+                    case 'S':
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        break;
+                    case 'H':
+                        Console.ForegroundColor = ConsoleColor.White;
+                        break;
+                }
+
+                Console.Write(c);
+
+                if (c != '.')
+                {
+                    counter++;
+                }
+            }
+            Console.WriteLine();
+        }
+
+        private static void ImprimirGeneral(string IP, int longRed, int longSubred)
+        {
+            int counter = 0;
+            char Color = 'R';
+            foreach (char c in IP)
+            {
+                if (counter < longRed)
+                {
+                    Color = 'R';
+                }
+                else
+                {
+                    Color = 'H';
+                }
+
+                switch(Color)
+                {
+                    case 'R':
+                        Console.ForegroundColor = ConsoleColor.Magenta; 
+                        break;
+                    case 'H':
+                        Console.ForegroundColor = ConsoleColor.White;
+                        break;
+                }
+
+                Console.Write(c);
+
+                if (c != '.')
+                {
+                    counter++;
+                }
+            }
+            Console.WriteLine();
         }
     }
 }
