@@ -1,0 +1,15 @@
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\bin\Debug\SubneteoDeRedesConInterfaz.exe.config
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\bin\Debug\SubneteoDeRedesConInterfaz.exe
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\bin\Debug\SubneteoDeRedesConInterfaz.pdb
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\SubneteoDeRedesConInterfaz.csproj.AssemblyReference.cache
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\MainWindow.g.cs
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\App.g.cs
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\SubneteoDeRedesConInterfaz_MarkupCompile.cache
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\SubneteoDeRedesConInterfaz_MarkupCompile.lref
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\MainWindow.baml
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\SubneteoDeRedesConInterfaz.g.resources
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\SubneteoDeRedesConInterfaz.Properties.Resources.resources
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\SubneteoDeRedesConInterfaz.csproj.GenerateResource.cache
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\SubneteoDeRedesConInterfaz.csproj.CoreCompileInputs.cache
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\SubneteoDeRedesConInterfaz.exe
+C:\Users\quori\source\repos\SubneteoDeRedesConInterfaz\SubneteoDeRedesConInterfaz\obj\Debug\SubneteoDeRedesConInterfaz.pdb
